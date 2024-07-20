@@ -1,0 +1,35 @@
+<div class="book-library">
+
+  <input type="text" [(ngModel)]="searchQuery" (input)="searchBooks()" placeholder="Search..."><button>search</button>
+  
+
+  <ul>
+    <li *ngFor="let book of books">
+      {{ book.title }} by {{ book.author }}
+      <button (click)="startEditBook(book)">Edit</button>
+      <button (click)="deleteBook(book)">Delete</button>
+    </li>
+  </ul>
+  
+
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ isEditingBook ? 'Edit Book' : 'Add New Book' }}</h2>
+      <form (ngSubmit)="saveBook()">
+        <label>Title:</label>
+        <input type="text" [(ngModel)]="currentBook.title" name="title" required>
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="currentBook.description" name="description" required>
+        <label>Author:</label>
+        <input type="text" [(ngModel)]="currentBook.author" name="author" required>
+        <label>Brand:</label>
+        <input type="text" [(ngModel)]="currentBook.brand" name="brand" required>
+        <button type="submit">{{ isEditingBook ? 'Update' : 'Save' }}</button>
+      </form>
+    </div>
+  </div>
+  
+
+  <button (click)="openAddModal()">Add New Book</button>
+</div>
